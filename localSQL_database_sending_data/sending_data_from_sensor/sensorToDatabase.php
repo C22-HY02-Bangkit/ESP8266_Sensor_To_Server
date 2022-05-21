@@ -9,8 +9,8 @@ $keyPass_value = "HY02companyBangkit";
 
 $keyPass = $sensor = $location = $value1 = $value2 = $value3 = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $keyPass = test_input($_POST["api_key"]);
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $keyPass = test_input($_POST["keyPass"]);
     if ($keyPass == $keyPass_value) {
         $sensor = test_input($_POST["sensor"]);
         $location = test_input($_POST["location"]);
@@ -39,8 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "Wrong API Key provided.";
     }
-} else {
-    echo "No data posted with HTTP POST.";
 }
 
 function test_input($data)
