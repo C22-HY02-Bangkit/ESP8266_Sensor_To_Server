@@ -13,7 +13,7 @@
 // Adding wifi ssid, password and server name
 const char* ssid = "PARAMITA";
 const char* password = "76602223";
-const char* serverName = "http://192.168.0.101/hydroponic_bangkit/sensorToDatabase.php";
+const char* serverName = "https://tranquil-tor-91089.herokuapp.com/api/monitor";
 
 
 int16_t soilValue;
@@ -56,16 +56,19 @@ void loop() {
     WiFiClient client;
     HTTPClient http;
 
-    http.begin(client, serverName);
-    http.addHeader("Content-Type", "application/x-www-form-urlencoded");
-    String httpRequestData = "keyPass=" + keyPass_value + "&sensor=" + sensorName
-                          + "&location=" + sensorLocation + "&value1=" + String(humidity)
-                          + "&value2=" + String(temperature) + "&value3=" + String(heat_index) + "";
+    
+    http.addHeader("Content-Type", "application/x-www-form-urlencoded");\
+    String a = "coba";
+    String httpRequestData = "?text=" + a + "";
+    //String httpRequestData = "keyPass=" + keyPass_value + "&sensor=" + sensorName
+                         // + "&location=" + sensorLocation + "&value1=" + String(humidity)
+                          //+ "&value2=" + String(temperature) + "&value3=" + String(heat_index) + "";
     Serial.print("httpRequestData: ");
     Serial.println(httpRequestData);
+    http.begin(client, httpRequestData.c_str());
     
   // Send HTTP POST request
-    int httpResponseCode = http.POST(httpRequestData);
+    int httpResponseCode = http.GET();
 
     if (httpResponseCode>0) {
       Serial.print("HTTP Response code: ");
